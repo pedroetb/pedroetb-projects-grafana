@@ -7,7 +7,7 @@ services:
       GF_PATHS_DATA:
       GF_PATHS_PROVISIONING:
       GF_INSTALL_PLUGINS:
-      GF_SERVER_ROOT_URL: ${TRAEFIK_PROTOCOL}://${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}
+      GF_SERVER_ROOT_URL: ${TRAEFIK_PROTOCOL}://${TRAEFIK_SUBDOMAIN}.${TRAEFIK_DOMAIN}
       GF_SERVER_HTTP_PORT:
       GF_SERVER_ENABLE_GZIP:
       GF_SECURITY_ADMIN_USER:
@@ -30,6 +30,7 @@ services:
     networks:
       metric-net:
       traefik-net:
+      mail-net:
     volumes:
       - data-vol:${GF_PATHS_DATA}
     configs:
@@ -51,16 +52,17 @@ services:
       mode: replicated
       replicas: ${REPLICAS:-1}
       labels:
-        traefik.frontend.rule: Host:${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}
-        traefik.backend: grafana
-        traefik.port: '${GF_SERVER_HTTP_PORT}'
+        traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT:-https}
+        traefik.http.routers.grafana.tls.certresolver: ${TRAEFIK_CERTRESOLVER:-default}
+        traefik.http.routers.grafana.rule: Host(`${TRAEFIK_SUBDOMAIN}.${TRAEFIK_DOMAIN}`)
+        traefik.http.services.grafana.loadbalancer.server.port: ${GF_SERVER_HTTP_PORT}
       restart_policy:
         delay: ${RESTART_DELAY:-10s}
       update_config:
         delay: ${UPDATE_DELAY:-1m}
       resources:
         limits:
-          cpus: '${RESOURCES_LIMITS_CPUS:-1}'
+          cpus: '${RESOURCES_LIMITS_CPUS:-0.5}'
           memory: ${RESOURCES_LIMITS_MEMORY:-128M}
         reservations:
           cpus: '${RESOURCES_RESERVATIONS_CPUS:-0.001}'
@@ -75,9 +77,18 @@ networks:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
     external: true
 
+  mail-net:
+    name: ${MAIL_NET_NAME:-mail-net}
+    external: true
+
 volumes:
   data-vol:
-    name: ${DATA_VOL_NAME}
+    name: ${DATA_VOL_NAME:-grafana-vol}
+    driver: local
+    driver_opts:
+      type: ${DATA_VOL_TYPE:-nfs}
+      o: ${DATA_VOL_OPTIONS}
+      device: ${DATA_VOL_DEVICE:-:/grafana-vol/}
 
 configs:
   datasources-config:
