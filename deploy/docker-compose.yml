@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.7'
 
 services:
   grafana:
@@ -27,9 +27,6 @@ services:
       GF_LOG_LEVEL:
       DASHBOARDS_PATH:
       PROMETHEUS_URL:
-      ELASTICSEARCH_URL:
-      ELASTICSEARCH_USER:
-      ELASTICSEARCH_PASS:
     networks:
       metric-net:
       traefik-net:
@@ -48,20 +45,8 @@ services:
         target: ${DASHBOARDS_PATH}/swarmprom-prometheus.json
       - source: docker-dashboard-config
         target: ${DASHBOARDS_PATH}/docker.json
-      - source: elasticsearch-fluentd-dashboard-config
-        target: ${DASHBOARDS_PATH}/elasticsearch-fluentd.json
-      - source: elasticsearch-dashboard-config
-        target: ${DASHBOARDS_PATH}/elasticsearch.json
-      - source: jvm-dashboard-config
-        target: ${DASHBOARDS_PATH}/jvm.json
-      - source: kafka-dashboard-config
-        target: ${DASHBOARDS_PATH}/kafka.json
-      - source: postgres-dashboard-config
-        target: ${DASHBOARDS_PATH}/postgres.json
       - source: traefik-dashboard-config
         target: ${DASHBOARDS_PATH}/traefik.json
-      - source: vernemq-dashboard-config
-        target: ${DASHBOARDS_PATH}/vernemq.json
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
@@ -90,6 +75,10 @@ networks:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
     external: true
 
+volumes:
+  data-vol:
+    name: ${DATA_VOL_NAME}
+
 configs:
   datasources-config:
     name: ${DATASOURCES_CONFIG_NAME:-grafana-datasources}
@@ -115,30 +104,6 @@ configs:
     name: ${DOCKER_DASHBOARD_CONFIG_NAME:-grafana-docker-dashboard}
     file: ./config/dashboards/docker.json
 
-  elasticsearch-fluentd-dashboard-config:
-    name: ${ELASTICSEARCH_FLUENTD_DASHBOARD_CONFIG_NAME:-grafana-elasticsearch-fluentd-dashboard}
-    file: ./config/dashboards/elasticsearch-fluentd.json
-
-  elasticsearch-dashboard-config:
-    name: ${ELASTICSEARCH_DASHBOARD_CONFIG_NAME:-grafana-elasticsearch-dashboard}
-    file: ./config/dashboards/elasticsearch.json
-
-  jvm-dashboard-config:
-    name: ${JVM_DASHBOARD_CONFIG_NAME:-grafana-jvm-dashboard}
-    file: ./config/dashboards/jvm.json
-
-  kafka-dashboard-config:
-    name: ${KAFKA_DASHBOARD_CONFIG_NAME:-grafana-kafka-dashboard}
-    file: ./config/dashboards/kafka.json
-
-  postgres-dashboard-config:
-    name: ${POSTGRES_DASHBOARD_CONFIG_NAME:-grafana-postgres-dashboard}
-    file: ./config/dashboards/postgres.json
-
   traefik-dashboard-config:
     name: ${TRAEFIK_DASHBOARD_CONFIG_NAME:-grafana-traefik-dashboard}
     file: ./config/dashboards/traefik.json
-
-  vernemq-dashboard-config:
-    name: ${VERNEMQ_DASHBOARD_CONFIG_NAME:-grafana-vernemq-dashboard}
-    file: ./config/dashboards/vernemq.json
