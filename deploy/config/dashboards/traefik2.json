@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_SWB",
-      "label": "Prometheus",
-      "description": "Traefik2 prometheus metric endpoint",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus",
-      "value": "Prometheus"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "6.3.6"
-    },
-    {
-      "type": "panel",
-      "id": "grafana-piechart-panel",
-      "name": "Pie Chart",
-      "version": "1.3.9"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -79,7 +36,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "format": "s",
       "gauge": {
         "maxValue": 100,
@@ -160,7 +117,7 @@
         "rgba(26, 206, 22, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "decimals": 0,
       "format": "none",
       "gauge": {
@@ -244,7 +201,7 @@
         "label": "Others",
         "threshold": 0
       },
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "fontSize": "80%",
       "format": "short",
       "gridPos": {
@@ -291,7 +248,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "format": "ms",
       "gauge": {
         "maxValue": 100,
@@ -368,7 +325,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -458,7 +415,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
@@ -553,7 +510,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -647,7 +604,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -738,7 +695,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
@@ -833,7 +790,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "fill": 7,
       "fillGradient": 0,
       "gridPos": {
@@ -926,7 +883,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "fill": 7,
       "fillGradient": 0,
       "gridPos": {
@@ -1019,7 +976,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_SWB}",
+      "datasource": "Prometheus",
       "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
@@ -1129,7 +1086,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_SWB}",
+        "datasource": "Prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -1151,7 +1108,7 @@
       {
         "allValue": "traefik",
         "current": {},
-        "datasource": "${DS_SWB}",
+        "datasource": "Prometheus",
         "definition": "",
         "hide": 0,
         "includeAll": false,
@@ -1173,7 +1130,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_SWB}",
+        "datasource": "Prometheus",
         "definition": "label_values(traefik_service_requests_total, protocol)",
         "hide": 0,
         "includeAll": true,
