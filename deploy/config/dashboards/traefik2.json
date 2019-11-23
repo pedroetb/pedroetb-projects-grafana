@@ -6,7 +6,8 @@
       "description": "Traefik2 prometheus metric endpoint",
       "type": "datasource",
       "pluginId": "prometheus",
-      "pluginName": "Prometheus"
+      "pluginName": "Prometheus",
+      "value": "Prometheus"
     }
   ],
   "__requires": [
