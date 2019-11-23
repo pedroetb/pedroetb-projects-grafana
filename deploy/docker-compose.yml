@@ -46,8 +46,8 @@ services:
         target: ${DASHBOARDS_PATH}/swarmprom-prometheus.json
       - source: docker-dashboard-config
         target: ${DASHBOARDS_PATH}/docker.json
-      - source: traefik-dashboard-config
-        target: ${DASHBOARDS_PATH}/traefik.json
+      - source: traefik2-dashboard-config
+        target: ${DASHBOARDS_PATH}/traefik2.json
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
@@ -115,6 +115,6 @@ configs:
     name: ${DOCKER_DASHBOARD_CONFIG_NAME:-grafana-docker-dashboard}
     file: ./config/dashboards/docker.json
 
-  traefik-dashboard-config:
-    name: ${TRAEFIK_DASHBOARD_CONFIG_NAME:-grafana-traefik-dashboard}
-    file: ./config/dashboards/traefik.json
+  traefik2-dashboard-config:
+    name: ${TRAEFIK2_DASHBOARD_CONFIG_NAME:-grafana-traefik2-dashboard}
+    file: ./config/dashboards/traefik2.json
