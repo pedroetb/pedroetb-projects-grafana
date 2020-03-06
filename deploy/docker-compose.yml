@@ -52,6 +52,7 @@ services:
       mode: replicated
       replicas: ${REPLICAS:-1}
       labels:
+        traefik.enable: 'true'
         traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT:-https}
         traefik.http.routers.grafana.tls.certresolver: ${TRAEFIK_CERTRESOLVER:-default}
         traefik.http.routers.grafana.rule: Host(`${TRAEFIK_SUBDOMAIN}.${TRAEFIK_DOMAIN}`)
@@ -71,14 +72,17 @@ services:
 networks:
   metric-net:
     name: ${METRIC_NET_NAME:-metric-net}
+    driver: ${METRIC_NET_DRIVER:-overlay}
     external: true
 
   traefik-net:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
+    driver: ${TRAEFIK_NET_DRIVER:-overlay}
     external: true
 
   mail-net:
     name: ${MAIL_NET_NAME:-mail-net}
+    driver: ${MAIL_NET_DRIVER:-overlay}
     external: true
 
 volumes:
@@ -86,7 +90,7 @@ volumes:
     name: ${DATA_VOL_NAME:-grafana-vol}
     driver: local
     driver_opts:
-      type: ${DATA_VOL_TYPE:-nfs}
+      type: ${DATA_VOL_TYPE:-nfs4}
       o: ${DATA_VOL_OPTIONS}
       device: ${DATA_VOL_DEVICE:-:/grafana-vol/}
 
