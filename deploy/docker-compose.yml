@@ -25,6 +25,7 @@ services:
       GF_SMTP_PASSWORD:
       GF_LOG_MODE:
       GF_LOG_LEVEL:
+      GF_AUTH_ANONYMOUS_ENABLED:
       DASHBOARDS_PATH:
       PROMETHEUS_URL:
     networks:
