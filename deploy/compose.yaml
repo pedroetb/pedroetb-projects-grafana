@@ -41,6 +41,12 @@ services:
         target: ${GF_PATHS_PROVISIONING}/datasources/datasources.yml
       - source: dashboards-providers-config
         target: ${GF_PATHS_PROVISIONING}/dashboards/dashboards_providers.yml
+    healthcheck:
+      test: curl -s http://localhost:${GF_SERVER_HTTP_PORT}/healthz
+      interval: ${HEALTHCHECK_INTERVAL:-1m}
+      timeout: ${HEALTHCHECK_TIMEOUT:-30s}
+      retries: ${HEALTHCHECK_RETRIES:-10}
+      start_period: ${HEALTHCHECK_START_PERIOD:-1m}
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
