@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 6,
+  "id": 11,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1350,7 +1350,7 @@
           "exemplar": false,
           "expr": "node_thermal_zone_temp * on(instance) group_left(node_name) node_meta{node_id=~\"$node_id\"}",
           "instant": false,
-          "legendFormat": "{{node_name}}",
+          "legendFormat": "{{node_name}} ({{type}})",
           "range": true,
           "refId": "A"
         }
@@ -2324,6 +2324,6 @@
   "timezone": "",
   "title": "Docker Swarm Nodes",
   "uid": "BPlb-Sgik",
-  "version": 6,
+  "version": 2,
   "weekStart": ""
 }
