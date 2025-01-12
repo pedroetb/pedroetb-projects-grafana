@@ -90,7 +90,7 @@ volumes:
     driver_opts:
       type: ${VOL_TYPE}
       o: addr=${VOL_ADDR},vers=${VOL_VERS},${VOL_OPTS}
-      device: ${DATA_VOL_DEVICE:-:/grafana-vol/}
+      device: :${VOL_DEVICE_PREFIX}${DATA_VOL_DEVICE:-/grafana-vol/}
 
   dashboards-vol:
     name: ${DASHBOARDS_VOL_NAME:-grafana-dashboards-vol}
@@ -98,7 +98,7 @@ volumes:
     driver_opts:
       type: ${VOL_TYPE}
       o: addr=${VOL_ADDR},vers=${VOL_VERS},${VOL_OPTS}
-      device: ${DASHBOARDS_VOL_DEVICE:-:/grafana-dashboards-vol/}
+      device: :${VOL_DEVICE_PREFIX}${DASHBOARDS_VOL_DEVICE:-/grafana-dashboards-vol/}
 
 configs:
   datasources-config:
